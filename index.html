@@ -16,7 +16,6 @@
             --bg-card: #0d1217;
             --electric-blue: #0077ff; 
             --silver: #e1e1e1; 
-            --text-dim: #8899a6;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,11 +30,10 @@
 
         h1, h2, h3 { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 4px; }
 
-        /* Hero Section */
         header {
             height: 100vh;
             background: linear-gradient(rgba(5, 8, 10, 0.85), rgba(5, 8, 10, 1)), 
-                        url('https://i.postimg.cc/02W8T8sP/marco-hero.jpg') center/cover no-repeat;
+                        url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -50,7 +48,6 @@
         .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 100px 20px; }
         .section-title { font-size: 1.8rem; margin-bottom: 50px; border-bottom: 1px solid rgba(0, 119, 255, 0.3); padding-bottom: 15px; display: inline-block; }
 
-        /* Biografía */
         .bio-section { margin-bottom: 100px; }
         .bio-text { font-size: 1.1rem; font-weight: 300; margin-bottom: 40px; max-width: 800px; }
         
@@ -58,32 +55,28 @@
         .award-box { background: var(--bg-card); padding: 30px; border-left: 3px solid var(--electric-blue); }
         .award-box h3 { font-size: 1rem; color: var(--electric-blue); margin-bottom: 10px; }
 
-        /* Ingeniería */
         .eng-section { background: linear-gradient(to right, #05080a, #0d1217); padding: 60px 40px; margin: 80px 0; border-top: 1px solid var(--electric-blue); border-bottom: 1px solid var(--electric-blue); text-align: center; }
 
-        /* Discografía */
         .disco-grid { display: flex; flex-direction: column; gap: 60px; }
         .disco-entry { display: flex; flex-direction: column; gap: 30px; background: rgba(255,255,255,0.02); padding: 20px; border: 1px solid rgba(0,119,255,0.1); }
         .disco-img { width: 100%; max-width: 350px; border: 1px solid rgba(255,255,255,0.1); }
         .disco-details { flex: 1; }
         .disco-details h3 { color: var(--electric-blue); margin-bottom: 15px; }
 
-        /* Prensa */
         .press-item { margin-bottom: 50px; position: relative; padding-left: 40px; }
-        .press-item a { text-decoration: none; color: inherit; transition: 0.3s; }
+        .press-item a { text-decoration: none; color: inherit; transition: 0.3s; display: block; }
         .press-item a:hover { color: var(--electric-blue); }
         .press-quote { font-style: italic; font-size: 1.2rem; display: block; margin-bottom: 10px; }
         .press-quote::before { content: '"'; font-family: serif; font-size: 3rem; color: var(--electric-blue); position: absolute; left: 0; top: -10px; }
         .press-source { display: block; font-style: normal; font-size: 0.8rem; color: var(--electric-blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
 
-        /* Botones */
         .btn-action { display: inline-flex; align-items: center; gap: 12px; padding: 18px 35px; border: 1px solid var(--electric-blue); color: var(--silver); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.8rem; transition: 0.3s; margin-top: 20px; background: transparent; cursor: pointer; }
         .btn-action:hover { background: var(--electric-blue); color: #fff; box-shadow: 0 0 20px rgba(0, 119, 255, 0.4); }
 
-        footer { padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer { padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: #030507; }
         .social-nav { margin-bottom: 30px; }
-        .social-nav a { color: var(--silver); font-size: 1.6rem; margin: 0 15px; transition: 0.3s; }
-        .social-nav a:hover { color: var(--electric-blue); }
+        .social-nav a { color: var(--silver); font-size: 1.8rem; margin: 0 15px; transition: 0.3s; }
+        .social-nav a:hover { color: var(--electric-blue); transform: translateY(-3px); display: inline-block; }
 
         @media (min-width: 768px) {
             .disco-entry { flex-direction: row; align-items: center; }
@@ -102,7 +95,7 @@
         <section class="bio-section">
             <h2 class="section-title">Biografía</h2>
             <p class="bio-text">
-                Marco Montero es un artista independiente, compositor y guitarrista originario de San Ramón de Alajuela, Costa Rica. Desde 2021, destaca por su profundidad conceptual y diversidad de influencias, incluyendo math rock, rock progresivo, trap y heavy metal. Su trabajo busca redefinir el sonido instrumental costarricense a través de paisajes sonoros densos y evolutivos.
+                Marco Montero es un artista independiente, compositor y guitarrista de San Ramón de Alajuela, Costa Rica. Su propuesta sonora se caracteriza por una amalgama de math rock, rock progresivo y atmósferas cinemáticas, consolidándose como una de las figuras técnicas más relevantes de la escena instrumental actual.
             </p>
             
             <div class="awards-container">
@@ -112,90 +105,73 @@
                 </div>
                 <div class="award-box">
                     <h3>PREMIOS ACAM 2022</h3>
-                    <p>Nominado a <strong>Mejor Disco Instrumental</strong> por su álbum debut <em>New Adventures</em>.</p>
+                    <p>Nominado a <strong>Mejor Disco Instrumental</strong> por <em>New Adventures</em>.</p>
                 </div>
             </div>
         </section>
 
         <section class="eng-section">
-            <h2>Ingeniería y Producción</h2>
-            <p style="margin: 20px 0; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto;">Servicios de producción integral, mezcla y masterización con un enfoque técnico de alta precisión para capturar la identidad única de cada obra musical.</p>
-            <a href="mailto:marcomonteromusic@gmail.com" class="btn-action">SOLICITAR COTIZACIÓN</a>
+            <h2>Ingeniería de Sonido</h2>
+            <p style="margin: 20px 0; font-weight: 300;">Producción, mezcla y masterización con un enfoque formal y cinemático.</p>
+            <a href="mailto:marcomonteromusic@gmail.com" class="btn-action">CONTACTO TÉCNICO</a>
         </section>
 
         <section id="discografia">
             <h2 class="section-title">Discografía</h2>
             <div class="disco-grid">
-                
                 <div class="disco-entry">
-                    <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ECOS+DE+ANOCHECER" alt="Ecos de Anochecer" class="disco-img">
+                    <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ECOS+DE+ANOCHECER" class="disco-img">
                     <div class="disco-details">
                         <h3>Ecos de Anochecer (2025)</h3>
-                        <p>Álbum conceptual secuela de "New Adventures". Destaca por su fusión de estilos trap con el rock progresivo y por atmósferas más densas y oscuras.</p>
+                        <p>LP Conceptual. Una exploración densa que fusiona elementos del trap con el rock progresivo.</p>
                     </div>
                 </div>
-
                 <div class="disco-entry">
-                    <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ENTRE+MAREAS" alt="Entre Mareas" class="disco-img">
+                    <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ENTRE+MAREAS" class="disco-img">
                     <div class="disco-details">
                         <h3>Entre Mareas (2024)</h3>
-                        <p>EP conceptual que explora la metáfora de "fallar y levantarse" desde la perspectiva de una ballena encallada. Paisajes sonoros únicos que reflejan resiliencia.</p>
+                        <p>EP basado en la resiliencia y paisajes sonoros inspirados en la naturaleza.</p>
                     </div>
                 </div>
-
-                <div class="disco-entry">
-                    <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=GALERIA+1930" alt="Galería 1930" class="disco-img">
-                    <div class="disco-details">
-                        <h3>Galería 1930 (En Vivo) (2023)</h3>
-                        <p>Álbum en vivo que captura la esencia de su presentación en el Museo Regional de San Ramón. Una experiencia visual y sonora nominada al Premio ACAM.</p>
-                    </div>
-                </div>
-
             </div>
         </section>
 
         <section id="prensa" style="margin-top: 100px;">
-            <h2 class="section-title">Menciones de Prensa</h2>
+            <h2 class="section-title">Prensa</h2>
             
             <div class="press-item">
-                <a href="https://infocabildo.com/marco-montero-rock-progresivo-con-cantos-de-ballenas/" target="_blank" rel="noopener noreferrer">
-                    <span class="press-quote">"Marco Montero: Rock progresivo con cantos de ballenas. Una obra conceptual que explora la resiliencia a través de paisajes sonoros únicos."</span>
-                    <span class="press-source">— INFOCABILDO (Reseña de Entre Mareas)</span>
+                <a href="https://infocabildo.com/marco-montero-rock-progresivo-con-cantos-de-ballenas/" target="_blank">
+                    <span class="press-quote">"Rock progresivo con cantos de ballenas... una obra conceptual que explora la resiliencia."</span>
+                    <span class="press-source">— INFOCABILDO (Entre Mareas)</span>
                 </a>
             </div>
 
             <div class="press-item">
-                <a href="https://nacionprogresiva.wordpress.com/2023/06/20/resena-new-adventures-de-marco-montero-un-prodigio-compositor-costarricense-con-una-manera-singular-de-hacer-prog/" target="_blank" rel="noopener noreferrer">
-                    <span class="press-quote">"Marco Montero: Un prodigio compositor costarricense con una manera singular de hacer prog. 'New Adventures' es una obra singular en el prog nacional."</span>
-                    <span class="press-source">— NACIÓN PROGRESIVA (Reseña de New Adventures)</span>
+                <a href="https://nacionprogresiva.wordpress.com/2023/06/20/resena-new-adventures-de-marco-montero-un-prodigio-compositor-costarricense-con-una-manera-singular-de-hacer-prog/" target="_blank">
+                    <span class="press-quote">"Un prodigio compositor costarricense con una manera singular de hacer prog."</span>
+                    <span class="press-source">— NACIÓN PROGRESIVA (New Adventures)</span>
                 </a>
             </div>
 
             <div class="press-item">
-                <a href="https://nacionprogresiva.wordpress.com/2023/08/10/resena-galeria-1930-en-vivo-de-marco-montero-el-trabajo-en-directo-de-este-excelente-compositor-costarricense-del-progresivo/" target="_blank" rel="noopener noreferrer">
-                    <span class="press-quote">"Reseña Galería 1930 (En Vivo): El trabajo en directo de este excelente compositor costarricense del progresivo."</span>
-                    <span class="press-source">— NACIÓN PROGRESIVA (Reseña de Galería 1930)</span>
+                <a href="https://nacionprogresiva.wordpress.com/2023/08/10/resena-galeria-1930-en-vivo-de-marco-montero-el-trabajo-en-directo-de-este-excelente-compositor-costarricense-del-progresivo/" target="_blank">
+                    <span class="press-quote">"El trabajo en directo de este excelente compositor del progresivo."</span>
+                    <span class="press-source">— NACIÓN PROGRESIVA (Galería 1930)</span>
                 </a>
             </div>
-        </section>
-
-        <section style="text-align: center; padding: 60px 0;">
-            <a href="https://docs.google.com/presentation/d/1EN0oP6FP7vZfe2YCVSUsP1b5gb0c81ApFkug5-O2Ffk/edit?usp=sharing" target="_blank" class="btn-action">
-                <i class="fas fa-file-pdf"></i> CONSULTAR EPK COMPLETO
-            </a>
         </section>
 
     </div>
 
     <footer>
         <div class="social-nav">
-            <a href="https://open.spotify.com/artist/7z5Gv3X..." target="_blank"><i class="fab fa-spotify"></i></a>
-            <a href="https://www.youtube.com/@TerciopeloBanda" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/terciopelo___/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank"><i class="fab fa-spotify"></i></a>
+            <a href="https://www.youtube.com/@MarcoMontero" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/__marcomontero__/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="mailto:marcomonteromusic@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
-        <p style="font-size: 0.8rem; letter-spacing: 2px; color: var(--electric-blue);">MARCO MONTERO • 2026</p>
-        <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 10px;">SAN RAMÓN, COSTA RICA</p>
+        <p style="font-size: 0.8rem; letter-spacing: 3px; color: var(--electric-blue); font-weight: 600;">MARCO MONTERO • 2026</p>
+        <p style="font-size: 0.7rem; opacity: 0.4; margin-top: 10px;">SAN RAMÓN, COSTA RICA</p>
     </footer>
 
 </body>
