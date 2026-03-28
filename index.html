@@ -70,11 +70,11 @@
             padding: 20px;
         }
 
-        /* Estilos del Logo */
+        /* Estilos del Logo - 3x Más Grande */
         .hero-logo {
-            max-width: 150px; /* Ajusta este valor según el tamaño de tu logo */
+            max-width: 450px; /* Triplicado de 150px a 450px */
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 40px; /* Un poco más de espacio */
             opacity: 0.9;
         }
 
@@ -86,8 +86,19 @@
 
         /* Bio & Awards */
         .bio-section { margin-bottom: 100px; }
-        .bio-text { font-size: 1.1rem; font-weight: 300; margin-bottom: 40px; max-width: 850px; opacity: 0.9; }
+        .bio-text { font-size: 1.1rem; font-weight: 300; margin-bottom: 20px; max-width: 850px; opacity: 0.9; }
         
+        /* Nuevo estilo para la info académica */
+        .bio-academic {
+            font-size: 0.9rem;
+            color: var(--electric-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
         .awards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .award-box { 
             background: var(--bg-card); 
@@ -120,9 +131,27 @@
         }
         .disco-entry:hover { border-color: var(--electric-blue); }
         
-        .disco-img-wrapper { overflow: hidden; max-width: 350px; width: 100%; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
-        .disco-img { width: 100%; transition: var(--transition); display: block; }
-        .disco-entry:hover .disco-img { transform: scale(1.05); filter: brightness(1.2); }
+        .disco-img-wrapper { 
+            overflow: hidden; 
+            max-width: 350px; 
+            width: 100%; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            flex-shrink: 0; 
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra para efecto disco */
+        }
+        
+        /* Efecto de textura de disco */
+        .disco-img-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .disco-img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); display: block; }
+        .disco-entry:hover .disco-img { transform: scale(1.05); filter: brightness(1.1) contrast(1.1); }
 
         .disco-details { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
         .disco-details h3 { color: var(--electric-blue); margin-bottom: 15px; }
@@ -178,7 +207,7 @@
 
         @media (min-width: 768px) {
             .disco-entry { flex-direction: row; align-items: stretch; }
-            .hero-logo { max-width: 200px; }
+            .hero-logo { max-width: 600px; } /* Aún más grande en escritorio */
         }
     </style>
 </head>
@@ -205,6 +234,8 @@
                 Marco Montero es un artista independiente, compositor y guitarrista de San Ramón de Alajuela, Costa Rica. Su propuesta sonora se caracteriza por una amalgama de math rock, rock progresivo y atmósferas cinemáticas, consolidándose como una de las figuras técnicas más relevantes de la escena instrumental actual.
             </p>
             
+            <p class="bio-academic">Graduado con honores de la especialidad de ingeniería de sonido en la ULACIT 2025</p>
+            
             <div class="awards-container">
                 <div class="award-box">
                     <h3>PREMIOS ACAM 2024</h3>
@@ -229,7 +260,7 @@
                 
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
-                        <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ECOS+DE+ANOCHECER" class="disco-img" alt="Ecos de Anochecer">
+                        <img src="ecosdeanochecer.png" class="disco-img" alt="Ecos de Anochecer">
                     </div>
                     <div class="disco-details">
                         <h3>Ecos de Anochecer (2025)</h3>
@@ -240,7 +271,7 @@
 
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
-                        <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ZIGZAG" class="disco-img" alt="ZIGZAG">
+                        <img src="zigzag.png" class="disco-img" alt="ZIGZAG">
                     </div>
                     <div class="disco-details">
                         <h3>ZIGZAG (2024)</h3>
@@ -251,7 +282,7 @@
 
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
-                        <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=ENTRE+MAREAS" class="disco-img" alt="Entre Mareas">
+                        <img src="entremareas.png" class="disco-img" alt="Entre Mareas">
                     </div>
                     <div class="disco-details">
                         <h3>Entre Mareas (2024)</h3>
@@ -262,18 +293,7 @@
 
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
-                        <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=CAOS+Y+LUZ" class="disco-img" alt="Caos y Luz">
-                    </div>
-                    <div class="disco-details">
-                        <h3>Caos y Luz (feat. Chanti) (2023)</h3>
-                        <p>Sencillo en colaboración con Chanti (Giant Sleeper), que fusiona elementos de rock progresivo y sonidos contemporáneos. Producida íntegramente por Marco Montero.</p>
-                        <a href="#" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
-                    </div>
-                </div>
-
-                <div class="disco-entry">
-                    <div class="disco-img-wrapper">
-                        <img src="https://via.placeholder.com/400x400/0d1217/0077ff?text=NEW+ADVENTURES" class="disco-img" alt="New Adventures">
+                        <img src="newadventures.png" class="disco-img" alt="New Adventures">
                     </div>
                     <div class="disco-details">
                         <h3>New Adventures (2022)</h3>
