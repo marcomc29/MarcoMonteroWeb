@@ -33,7 +33,6 @@
 
         h1, h2, h3 { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 4px; }
 
-        /* Navegación */
         nav {
             position: fixed;
             top: 0;
@@ -58,7 +57,6 @@
 
         nav a:hover { color: var(--electric-blue); }
 
-        /* Header con Logo 3x */
         header {
             height: 100vh;
             background: linear-gradient(rgba(5, 8, 10, 0.7), rgba(5, 8, 10, 1)), 
@@ -84,7 +82,6 @@
         .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
         .section-title { font-size: 1.8rem; margin-bottom: 50px; border-bottom: 1px solid rgba(0, 119, 255, 0.3); padding-bottom: 15px; display: inline-block; }
 
-        /* Bio & Academic */
         .bio-section { margin-bottom: 100px; }
         .bio-text { font-size: 1.1rem; font-weight: 300; margin-bottom: 20px; max-width: 850px; opacity: 0.9; }
         .bio-academic {
@@ -97,11 +94,32 @@
             opacity: 0.8;
         }
 
-        /* Awards Grid mejorado con enlaces */
+        /* Galería Estilo */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 100px;
+        }
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(40%);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
         .awards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        
         .award-link { text-decoration: none; color: inherit; display: block; }
-        
         .award-box { 
             background: var(--bg-card); 
             padding: 30px; 
@@ -109,18 +127,20 @@
             transition: var(--transition);
             height: 100%;
         }
-        
         .award-link:hover .award-box { 
             transform: translateY(-5px); 
             background: #141b22; 
             box-shadow: 0 10px 20px rgba(0, 119, 255, 0.1);
             border-left-width: 6px;
         }
-        
         .award-box h3 { font-size: 0.9rem; color: var(--electric-blue); margin-bottom: 10px; }
-        .award-box p { font-size: 0.9rem; }
 
-        /* Engineering Section */
+        .multimedia-section { margin-bottom: 100px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 1px solid rgba(0, 119, 255, 0.2); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-caption { margin-top: 15px; font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--silver); letter-spacing: 2px; text-align: center; }
+
         .eng-section { 
             background: linear-gradient(45deg, #05080a, #0d1217); 
             padding: 80px 40px; 
@@ -129,7 +149,6 @@
             text-align: center; 
         }
 
-        /* Discography */
         .disco-grid { display: flex; flex-direction: column; gap: 40px; }
         .disco-entry { 
             display: flex; 
@@ -141,7 +160,6 @@
             transition: var(--transition);
         }
         .disco-entry:hover { border-color: var(--electric-blue); }
-        
         .disco-img-wrapper { 
             overflow: hidden; 
             max-width: 300px; 
@@ -151,23 +169,16 @@
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .disco-img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); display: block; }
         .disco-entry:hover .disco-img { transform: scale(1.05); filter: brightness(1.1); }
-
         .disco-details { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
         .disco-details h3 { color: var(--electric-blue); margin-bottom: 15px; }
-        .disco-details p { font-weight: 300; font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* Press */
         .press-item { margin-bottom: 50px; position: relative; padding-left: 50px; }
         .press-item a { text-decoration: none; color: inherit; transition: 0.3s; display: block; }
-        .press-item a:hover .press-quote { color: var(--electric-blue); }
-        .press-quote { font-style: italic; font-size: 1.1rem; display: block; margin-bottom: 10px; }
         .press-quote::before { content: '"'; font-family: serif; font-size: 3.5rem; color: var(--electric-blue); position: absolute; left: 0; top: -15px; opacity: 0.5; }
         .press-source { display: block; font-style: normal; font-size: 0.75rem; color: var(--electric-blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
 
-        /* Buttons */
         .btn-action { 
             display: inline-flex; 
             align-items: center; 
@@ -192,6 +203,10 @@
         .social-nav a { color: var(--silver); font-size: 1.6rem; margin: 0 15px; transition: var(--transition); }
         .social-nav a:hover { color: var(--electric-blue); transform: translateY(-5px); display: inline-block; }
 
+        @media (max-width: 768px) {
+            .video-grid { grid-template-columns: 1fr; }
+        }
+
         @media (min-width: 768px) {
             .disco-entry { flex-direction: row; align-items: stretch; }
             .hero-logo { max-width: 600px; }
@@ -202,6 +217,8 @@
 
     <nav>
         <a href="#">INICIO</a>
+        <a href="#galeria">GALERÍA</a>
+        <a href="#multimedia">MULTIMEDIA</a>
         <a href="#discografia">DISCOGRAFÍA</a>
         <a href="#prensa">PRENSA</a>
         <a href="mailto:marcomonteromusic@gmail.com">CONTACTO</a>
@@ -229,27 +246,52 @@
                         <p>Nominado a <strong>Mejor Sencillo Rock Progresivo</strong> por <em>ZIGZAG</em> (colab. José D. Porras).</p>
                     </div>
                 </a>
-
                 <a href="https://www.youtube.com/watch?v=pRqZV9egSaQ" target="_blank" class="award-link">
                     <div class="award-box">
                         <h3>PREMIOS ACAM 2024</h3>
                         <p>Nominado a <strong>Mejor Sencillo Instrumental</strong> por <em>Caos y Luz</em> (colab. Chanti).</p>
                     </div>
                 </a>
-
                 <a href="https://www.youtube.com/watch?v=Wqh1NXguyr0&list=RDWqh1NXguyr0&start_radio=1&t=7s" target="_blank" class="award-link">
                     <div class="award-box">
                         <h3>PREMIOS ACAM 2024</h3>
                         <p>Nominado a <strong>Mejor Álbum de Rock Progresivo</strong> por <em>Galería 1930 (En Vivo)</em>.</p>
                     </div>
                 </a>
-
                 <a href="https://www.youtube.com/watch?v=rTgqXU5kj1E&list=RDrTgqXU5kj1E&start_radio=1&t=351s" target="_blank" class="award-link">
                     <div class="award-box">
                         <h3>PREMIOS ACAM 2022</h3>
                         <p>Nominado a <strong>Mejor Disco Instrumental</strong> por <em>New Adventures</em>.</p>
                     </div>
                 </a>
+            </div>
+        </section>
+
+        <section id="galeria">
+            <h2 class="section-title">Galería</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="marco.webp" alt="Marco Montero 1"></div>
+                <div class="gallery-item"><img src="marco1.webp" alt="Marco Montero 2"></div>
+                <div class="gallery-item"><img src="marco2.webp" alt="Marco Montero 3"></div>
+                <div class="gallery-item"><img src="marco3.webp" alt="Marco Montero 4"></div>
+            </div>
+        </section>
+
+        <section id="multimedia" class="multimedia-section">
+            <h2 class="section-title">Multimedia</h2>
+            <div class="video-grid">
+                <div>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/2J8v-ONCevI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-caption">El Gangster (Guitar Playthrough)</p>
+                </div>
+                <div>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ln0_VUJKFTc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-caption">Migrar o Morir (En Vivo @London Room)</p>
+                </div>
             </div>
         </section>
 
@@ -262,7 +304,6 @@
         <section id="discografia">
             <h2 class="section-title">Discografía</h2>
             <div class="disco-grid">
-                
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
                         <img src="ecosdeanochecer.png" class="disco-img" alt="Ecos de Anochecer">
@@ -270,21 +311,19 @@
                     <div class="disco-details">
                         <h3>Ecos de Anochecer (2025)</h3>
                         <p>LP Conceptual. Una exploración densa que fusiona elementos del trap con el rock progresivo.</p>
-                        <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
+                        <a href="https://open.spotify.com/album/5d4ly1XeuafSm2Cw7gVXbX" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
                     </div>
                 </div>
-
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
                         <img src="zigzag.png" class="disco-img" alt="ZIGZAG">
                     </div>
                     <div class="disco-details">
                         <h3>ZIGZAG (2024)</h3>
-                        <p>Sencillo en colaboración entre Marco Montero y José D. Porras. Pieza instrumental que destaca por su fusión de estilos y sinergia creativa.</p>
-                        <a href="https://www.youtube.com/watch?v=Jr5hQ5_U_BE&list=RDJr5hQ5_U_BE&start_radio=1" target="_blank" class="btn-listen"><i class="fab fa-youtube"></i> ESCUCHAR</a>
+                        <p>Sencillo en colaboración con José D. Porras. Pieza instrumental que destaca por su fusión de estilos.</p>
+                        <a href="https://open.spotify.com/album/64qCO933912UrydW3A3m80" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
                     </div>
                 </div>
-
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
                         <img src="entremareas.png" class="disco-img" alt="Entre Mareas">
@@ -292,21 +331,19 @@
                     <div class="disco-details">
                         <h3>Entre Mareas (2024)</h3>
                         <p>EP basado en la resiliencia y paisajes sonoros inspirados en la naturaleza.</p>
-                        <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
+                        <a href="https://open.spotify.com/album/7iBTpdxTTRaaVtFx0pwLoD" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
                     </div>
                 </div>
-
                 <div class="disco-entry">
                     <div class="disco-img-wrapper">
                         <img src="newadventures.png" class="disco-img" alt="New Adventures">
                     </div>
                     <div class="disco-details">
                         <h3>New Adventures (2022)</h3>
-                        <p>Nominado a Mejor Disco Instrumental (ACAM). Ocho temas que representan un viaje personal hacia un nuevo comienzo. Mezcla y máster por Adrián González.</p>
-                        <a href="https://www.youtube.com/watch?v=rTgqXU5kj1E&list=RDrTgqXU5kj1E&start_radio=1&t=351s" target="_blank" class="btn-listen"><i class="fab fa-youtube"></i> ESCUCHAR</a>
+                        <p>Nominado a Mejor Disco Instrumental (ACAM). Ocho temas que representan un viaje personal.</p>
+                        <a href="https://open.spotify.com/album/7G6s9D96yXBaJeqvAyzgPs" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -316,12 +353,6 @@
                 <a href="https://infocabildo.com/marco-montero-rock-progresivo-con-cantos-de-ballenas/" target="_blank">
                     <span class="press-quote">"Rock progresivo con cantos de ballenas... una obra conceptual que explora la resiliencia."</span>
                     <span class="press-source">— INFOCABILDO</span>
-                </a>
-            </div>
-            <div class="press-item">
-                <a href="https://nacionprogresiva.wordpress.com/2023/06/20/resena-new-adventures-de-marco-montero-un-prodigio-compositor-costarricense-con-una-manera-singular-de-hacer-prog/" target="_blank">
-                    <span class="press-quote">"Un prodigio compositor costarricense con una manera singular de hacer prog."</span>
-                    <span class="press-source">— NACIÓN PROGRESIVA</span>
                 </a>
             </div>
         </section>
