@@ -97,16 +97,28 @@
             opacity: 0.8;
         }
 
-        /* Awards Grid */
+        /* Awards Grid mejorado con enlaces */
         .awards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        .award-link { text-decoration: none; color: inherit; display: block; }
+        
         .award-box { 
             background: var(--bg-card); 
             padding: 30px; 
             border-left: 3px solid var(--electric-blue);
             transition: var(--transition);
+            height: 100%;
         }
-        .award-box:hover { transform: translateX(10px); background: #141b22; }
+        
+        .award-link:hover .award-box { 
+            transform: translateY(-5px); 
+            background: #141b22; 
+            box-shadow: 0 10px 20px rgba(0, 119, 255, 0.1);
+            border-left-width: 6px;
+        }
+        
         .award-box h3 { font-size: 0.9rem; color: var(--electric-blue); margin-bottom: 10px; }
+        .award-box p { font-size: 0.9rem; }
 
         /* Engineering Section */
         .eng-section { 
@@ -211,22 +223,33 @@
             <p class="bio-academic">Graduado con honores de la especialidad de ingeniería de sonido en la ULACIT 2025</p>
             
             <div class="awards-container">
-                <div class="award-box">
-                    <h3>PREMIOS ACAM 2025</h3>
-                    <p>Nominado a <strong>Mejor Sencillo Rock Progresivo</strong> por <em>ZIGZAG</em> (colab. José D. Porras).</p>
-                </div>
-                <div class="award-box">
-                    <h3>PREMIOS ACAM 2024</h3>
-                    <p>Nominado a <strong>Mejor Sencillo Instrumental</strong> por <em>Caos y Luz</em> (colab. Chanti).</p>
-                </div>
-                <div class="award-box">
-                    <h3>PREMIOS ACAM 2024</h3>
-                    <p>Nominado a <strong>Mejor Álbum de Rock Progresivo</strong> por <em>Galería 1930 (En Vivo)</em>.</p>
-                </div>
-                <div class="award-box">
-                    <h3>PREMIOS ACAM 2022</h3>
-                    <p>Nominado a <strong>Mejor Disco Instrumental</strong> por <em>New Adventures</em>.</p>
-                </div>
+                <a href="https://www.youtube.com/watch?v=Jr5hQ5_U_BE&list=RDJr5hQ5_U_BE&start_radio=1" target="_blank" class="award-link">
+                    <div class="award-box">
+                        <h3>PREMIOS ACAM 2025</h3>
+                        <p>Nominado a <strong>Mejor Sencillo Rock Progresivo</strong> por <em>ZIGZAG</em> (colab. José D. Porras).</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=pRqZV9egSaQ" target="_blank" class="award-link">
+                    <div class="award-box">
+                        <h3>PREMIOS ACAM 2024</h3>
+                        <p>Nominado a <strong>Mejor Sencillo Instrumental</strong> por <em>Caos y Luz</em> (colab. Chanti).</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=Wqh1NXguyr0&list=RDWqh1NXguyr0&start_radio=1&t=7s" target="_blank" class="award-link">
+                    <div class="award-box">
+                        <h3>PREMIOS ACAM 2024</h3>
+                        <p>Nominado a <strong>Mejor Álbum de Rock Progresivo</strong> por <em>Galería 1930 (En Vivo)</em>.</p>
+                    </div>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=rTgqXU5kj1E&list=RDrTgqXU5kj1E&start_radio=1&t=351s" target="_blank" class="award-link">
+                    <div class="award-box">
+                        <h3>PREMIOS ACAM 2022</h3>
+                        <p>Nominado a <strong>Mejor Disco Instrumental</strong> por <em>New Adventures</em>.</p>
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -247,7 +270,7 @@
                     <div class="disco-details">
                         <h3>Ecos de Anochecer (2025)</h3>
                         <p>LP Conceptual. Una exploración densa que fusiona elementos del trap con el rock progresivo.</p>
-                        <a href="#" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
+                        <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
                     </div>
                 </div>
 
@@ -258,7 +281,7 @@
                     <div class="disco-details">
                         <h3>ZIGZAG (2024)</h3>
                         <p>Sencillo en colaboración entre Marco Montero y José D. Porras. Pieza instrumental que destaca por su fusión de estilos y sinergia creativa.</p>
-                        <a href="#" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
+                        <a href="https://www.youtube.com/watch?v=Jr5hQ5_U_BE&list=RDJr5hQ5_U_BE&start_radio=1" target="_blank" class="btn-listen"><i class="fab fa-youtube"></i> ESCUCHAR</a>
                     </div>
                 </div>
 
@@ -269,7 +292,7 @@
                     <div class="disco-details">
                         <h3>Entre Mareas (2024)</h3>
                         <p>EP basado en la resiliencia y paisajes sonoros inspirados en la naturaleza.</p>
-                        <a href="#" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
+                        <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
                     </div>
                 </div>
 
@@ -280,7 +303,7 @@
                     <div class="disco-details">
                         <h3>New Adventures (2022)</h3>
                         <p>Nominado a Mejor Disco Instrumental (ACAM). Ocho temas que representan un viaje personal hacia un nuevo comienzo. Mezcla y máster por Adrián González.</p>
-                        <a href="#" class="btn-listen"><i class="fab fa-spotify"></i> ESCUCHAR</a>
+                        <a href="https://www.youtube.com/watch?v=rTgqXU5kj1E&list=RDrTgqXU5kj1E&start_radio=1&t=351s" target="_blank" class="btn-listen"><i class="fab fa-youtube"></i> ESCUCHAR</a>
                     </div>
                 </div>
 
@@ -307,7 +330,7 @@
 
     <footer>
         <div class="social-nav">
-            <a href="#" target="_blank"><i class="fab fa-spotify"></i></a>
+            <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank"><i class="fab fa-spotify"></i></a>
             <a href="https://www.youtube.com/@MarcoMontero" target="_blank"><i class="fab fa-youtube"></i></a>
             <a href="https://www.instagram.com/__marcomontero__/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="mailto:marcomonteromusic@gmail.com"><i class="fas fa-envelope"></i></a>
