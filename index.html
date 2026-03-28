@@ -59,11 +59,10 @@
 
         header {
             height: 100vh;
-            /* SE AJUSTÓ LA POSICIÓN (background-position) Y EL DEGRADADO PARA REVELAR TU CARA */
             background: linear-gradient(rgba(5, 8, 10, 0.5), rgba(5, 8, 10, 0.8)), 
                         url('marco3.webp') no-repeat;
             background-size: cover;
-            background-position: center 20%; /* Baja la imagen para mostrar la cara */
+            background-position: center 20%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -97,7 +96,6 @@
             opacity: 0.8;
         }
 
-        /* Galería Estilo */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -122,7 +120,6 @@
             filter: grayscale(0%);
         }
 
-        /* Lightbox CSS */
         #lightbox {
             display: none;
             position: fixed;
@@ -161,6 +158,22 @@
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 1px solid rgba(0, 119, 255, 0.2); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .video-caption { margin-top: 15px; font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--silver); letter-spacing: 2px; text-align: center; }
+
+        /* Proyectos Paralelos Style */
+        .projects-section { margin-bottom: 100px; }
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 119, 255, 0.1);
+            padding: 30px;
+            gap: 25px;
+            transition: var(--transition);
+        }
+        .project-card:hover { border-color: var(--electric-blue); }
+        .project-header { display: flex; align-items: center; gap: 20px; }
+        .project-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid var(--electric-blue); }
+        .project-info h3 { color: var(--electric-blue); font-size: 1.2rem; }
 
         .eng-section { 
             background: linear-gradient(45deg, #05080a, #0d1217); 
@@ -233,6 +246,7 @@
         @media (min-width: 768px) {
             .disco-entry { flex-direction: row; align-items: stretch; }
             .hero-logo { max-width: 600px; }
+            .project-card { flex-direction: row; align-items: center; }
         }
     </style>
 </head>
@@ -242,8 +256,8 @@
         <a href="#">INICIO</a>
         <a href="#galeria">GALERÍA</a>
         <a href="#multimedia">MULTIMEDIA</a>
+        <a href="#proyectos">PROYECTOS</a>
         <a href="#discografia">DISCOGRAFÍA</a>
-        <a href="#prensa">PRENSA</a>
         <a href="mailto:marcomonteromusic@gmail.com">CONTACTO</a>
     </nav>
 
@@ -254,7 +268,7 @@
     <header>
         <img src="logo.png" alt="Logo Marco Montero" class="hero-logo">
         <h1 class="hero-name">MARCO MONTERO</h1>
-        <div class="hero-tagline">SOLISTA • PRODUCTOR • INGENIERO</div>
+        <div class="hero-tagline">COMPOSITOR • PRODUCTOR • INGENIERO DE SONIDO</div>
     </header>
 
     <div class="container">
@@ -318,6 +332,18 @@
                         <iframe src="https://www.youtube.com/embed/ln0_VUJKFTc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <p class="video-caption">Migrar o Morir (En Vivo @London Room)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos" class="projects-section">
+            <h2 class="section-title">Proyectos Paralelos</h2>
+            <div class="project-card">
+                <img src="renacer.png" alt="Terciopelo - Renacer" class="project-img">
+                <div class="project-info">
+                    <h3>TERCIOPELO</h3>
+                    <p style="margin: 10px 0; font-weight: 300;">Banda de rock alternativo y progresivo donde Marco participa como guitarrista y productor. Con una propuesta atmosférica y potente, Terciopelo explora narrativas emocionales a través de composiciones complejas pero accesibles.</p>
+                    <a href="https://terciopelo.online" target="_blank" class="btn-listen" style="padding: 5px 15px;">SITIO WEB OFICIAL</a>
                 </div>
             </div>
         </section>
