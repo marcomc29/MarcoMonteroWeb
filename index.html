@@ -1,9 +1,3 @@
-Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria del sitio, hice los siguientes ajustes tipográficos y de contraste:
-
-* **Mayor contraste en textos:** Se aclararon los colores de texto (`--silver` pasó a `#f3f5f8` y `--muted` subió de `#8a94a0` a `#b8c2cc`) y se aumentó el peso base de `300` (Light) a `400` (Regular) en párrafos y descripciones para evitar que las letras se pierdan en pantallas con poco brillo.
-* **Escala tipográfica ampliada:** Se incrementó el tamaño base de lectura en párrafos generales (`1.02rem` a `1.2rem`), descripciones de álbumes (`0.9rem`), citas de prensa (`1.02rem`), navegación y etiquetas secundarias.
-
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -603,7 +597,7 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
 
         .bio-pillars {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
             gap: 18px;
             margin-top: 10px;
         }
@@ -998,7 +992,6 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
             .nav-links { display: none; }
             .video-grid { grid-template-columns: 1fr; }
             .dual-feature { grid-template-columns: 1fr; }
-            .bio-pillars { grid-template-columns: 1fr; }
             .manifesto-banner { padding: 30px 25px; }
             .bento-gallery {
                 grid-template-columns: repeat(2, 1fr);
@@ -1025,7 +1018,7 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
         </a>
         <div class="nav-links">
             <a href="#discografia">MÚSICA</a>
-            <a href="#multimedia">SESIONES</a>
+            <a href="#multimedia">VIDEOS</a>
             <a href="#biografia">ARTISTA</a>
             <a href="#galeria">ARCHIVO</a>
             <a href="#prensa">PRENSA</a>
@@ -1105,7 +1098,7 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
                     </div>
                     <span class="album-year">2025 • ÁLBUM (7 TEMAS)</span>
                     <h3 class="album-title">Ecos de Anochecer</h3>
-                    <p class="album-desc">Un recorrido por la soledad, el caos y el misticismo bajo la idea de que nada ocurre por azar. Ilustrado con dibujos en papel del propio autor. Segunda entrega actualmente en preproducción.</p>
+                    <p class="album-desc">Un recorrido por el caos y el misticismo bajo la idea de que nada ocurre por azar. Ilustrado con dibujos en papel del propio autor.</p>
                     <a href="https://open.spotify.com/album/5d4ly1XeuafSm2Cw7gVXbX" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
                         <i class="fab fa-spotify"></i> ESCUCHAR
                     </a>
@@ -1122,7 +1115,7 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
                     </div>
                     <span class="album-year">2024 • SENCILLO</span>
                     <h3 class="album-title">ZIGZAG</h3>
-                    <p class="album-desc">En colaboración con José D. Porras. Una pieza de precisión rítmica y carácter directo nominada a Mejor Sencillo Rock Progresivo en los Premios ACAM 2025.</p>
+                    <p class="album-desc">En colaboración con José D. Porras. Carácter directo nominado a Mejor Sencillo Rock Progresivo en los Premios ACAM 2025.</p>
                     <a href="https://open.spotify.com/album/64qCO933912UrydW3A3m80" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
                         <i class="fab fa-spotify"></i> ESCUCHAR
                     </a>
@@ -1139,7 +1132,7 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
                     </div>
                     <span class="album-year">2024 • EP</span>
                     <h3 class="album-title">Entre Mareas</h3>
-                    <p class="album-desc">Introspección, nostalgia y resiliencia narradas desde la metáfora de una ballena varada en la costa, representada gráficamente por dos cetáceos en equilibrio dual.</p>
+                    <p class="album-desc">Introspección, nostalgia y resiliencia narradas desde la metáfora de una ballena varada en la costa.</p>
                     <a href="https://open.spotify.com/album/7iBTpdxTTRaaVtFx0pwLoD" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
                         <i class="fab fa-spotify"></i> ESCUCHAR
                     </a>
@@ -1156,7 +1149,7 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
                     </div>
                     <span class="album-year">2022 • ÁLBUM DEBUT (8 TEMAS)</span>
                     <h3 class="album-title">New Adventures</h3>
-                    <p class="album-desc">Euforia y coraje al cerrar una etapa universitaria para zarpar hacia lo desconocido. Representado por un vórtice de fotografía natural; nominado a Mejor Disco Instrumental (ACAM).</p>
+                    <p class="album-desc">Euforia y coraje para zarpar hacia lo desconocido en una nueva aventura. Disco instrumental nominado a los Premios ACAM.</p>
                     <a href="https://open.spotify.com/album/7G6s9D96yXBaJeqvAyzgPs" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
                         <i class="fab fa-spotify"></i> ESCUCHAR
                     </a>
@@ -1164,12 +1157,12 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
             </div>
         </section>
 
-        <!-- MULTIMEDIA & SESIONES -->
+        <!-- MULTIMEDIA & VIDEOS -->
         <section id="multimedia" style="margin-bottom: 120px;">
             <div class="section-header">
                 <div class="section-header-left">
                     <span>Audiovisual</span>
-                    <h2 class="section-title">Sesiones & Directo</h2>
+                    <h2 class="section-title">Videos y Directo</h2>
                 </div>
                 <a href="https://www.youtube.com/@MarcoMontero" target="_blank" class="btn-outline btn-sm">
                     <i class="fab fa-youtube"></i> YOUTUBE
@@ -1210,20 +1203,16 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
             <div class="bio-layout">
                 <div class="bio-story">
                     <p class="bio-lead">
-                        Compositor y guitarrista de San Ramón de Alajuela, Costa Rica. Con un trasfondo marcado por las ciencias exactas, la biología y el estudio autodidacta de la guitarra eléctrica desde los 14 años, aborda la música desde una mirada analítica y honesta.
+                        Compositor y guitarrista de San Ramón de Alajuela, Costa Rica. Con un trasfondo marcado por las ciencias exactas, la biología y el estudio de la guitarra eléctrica a los 14 años, aborda la música desde una mirada analítica y honesta.
                     </p>
                     <p class="bio-text">
-                        Tras dejar la ingeniería eléctrica en la UCR para dedicarse de lleno a su proyecto, debutó en 2022 con <em>New Adventures</em> y consolidó su evolución hacia un lenguaje más introspectivo con el EP <em>Entre Mareas</em> (2024) y el LP <em>Ecos de Anochecer</em> (2025).
+                        Debutó en 2022 con el álbum <em>New Adventures</em> y consolidó su evolución hacia un lenguaje más introspectivo con el EP <em>Entre Mareas</em> (2024) y el LP <em>Ecos de Anochecer</em> (2025).
                     </p>
 
                     <div class="bio-pillars">
                         <div class="pillar-box">
                             <h4><i class="fas fa-bolt"></i> Directo</h4>
-                            <p>Shows eléctricos respaldados por visuales ligados a la naturaleza y cada álbum. Adaptable de dúo y trío a banda completa con metales.</p>
-                        </div>
-                        <div class="pillar-box">
-                            <h4><i class="fas fa-eye"></i> Identidad Visual</h4>
-                            <p>Estética sobria y sin adornos. Cada lanzamiento integra fotografía orgánica, simbolismo o ilustraciones dibujadas a mano.</p>
+                            <p>Shows eléctricos respaldados por visuales ligados a la naturaleza y cada álbum.</p>
                         </div>
                     </div>
 
@@ -1449,5 +1438,3 @@ Para mejorar la legibilidad sobre el fondo negro sin perder la estética sobria 
 
 </body>
 </html>
-
-```
