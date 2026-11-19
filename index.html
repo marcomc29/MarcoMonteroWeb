@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marco Montero | Compositor • Productor • Ingeniero de Sonido</title>
     
+    <link rel="alternate" hreflang="es" href="https://marcomontero.com/">
+    <link rel="alternate" hreflang="en" href="https://marcomontero.com/en.html">
+    <link rel="alternate" hreflang="x-default" href="https://marcomontero.com/">
+
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
@@ -121,6 +125,7 @@
 
         .nav-social {
             display: flex;
+            align-items: center;
             gap: 18px;
         }
 
@@ -135,6 +140,25 @@
             color: var(--electric-blue);
             opacity: 1;
             transform: translateY(-2px);
+        }
+
+        .nav-social .lang-switch {
+            font-family: 'Cinzel', serif;
+            font-size: 0.76rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--silver);
+            border: 1px solid var(--border-accent);
+            padding: 4px 10px;
+            background: rgba(26, 133, 255, 0.08);
+            opacity: 1;
+        }
+
+        .nav-social .lang-switch:hover {
+            background: var(--electric-blue);
+            color: #ffffff;
+            border-color: var(--electric-blue);
         }
 
         /* Hero Editorial */
@@ -1025,6 +1049,7 @@
             <a href="#proyectos">ESTUDIO & PROYECTOS</a>
         </div>
         <div class="nav-social">
+            <a href="en.html" class="lang-switch" aria-label="Switch to English" title="English version">EN</a>
             <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
             <a href="https://www.youtube.com/@MarcoMontero" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://www.instagram.com/__marcomontero__/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
