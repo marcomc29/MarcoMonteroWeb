@@ -7,16 +7,21 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root { 
-            --bg-dark: #05080a; 
-            --bg-card: #0d1217;
+            --bg-dark: #040608; 
+            --bg-surface: #0a0f14;
+            --bg-glass: rgba(10, 15, 20, 0.75);
             --electric-blue: #0077ff; 
-            --silver: #e1e1e1; 
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --electric-glow: rgba(0, 119, 255, 0.35);
+            --silver: #e6e8eb; 
+            --muted: #8a94a0;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(0, 119, 255, 0.35);
+            --transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,413 +32,1260 @@
             font-family: 'Montserrat', sans-serif;
             background: var(--bg-dark);
             color: var(--silver);
-            line-height: 1.7;
+            line-height: 1.75;
             overflow-x: hidden;
+            padding-bottom: 85px; /* Space for sticky audio bar */
         }
 
-        h1, h2, h3 { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 4px; }
+        /* Subtle Ambient Grain & Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -20%; left: -10%;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(0, 119, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
 
+        h1, h2, h3, .font-display { 
+            font-family: 'Cinzel', serif; 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+        }
+
+        /* Top Artist Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px;
+            padding: 18px 5%;
             z-index: 1000;
-            background: rgba(5, 8, 10, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(4, 6, 8, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav a {
-            color: var(--silver);
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-decoration: none;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            font-weight: 600;
+            color: var(--silver);
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        .nav-brand img {
+            height: 28px;
+            width: auto;
+            filter: brightness(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 0; height: 1px;
+            background: var(--electric-blue);
             transition: var(--transition);
         }
 
-        nav a:hover { color: var(--electric-blue); }
+        .nav-links a:hover { color: var(--silver); }
+        .nav-links a:hover::after { width: 100%; }
 
+        .nav-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-social a {
+            color: var(--silver);
+            font-size: 1rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .nav-social a:hover {
+            color: var(--electric-blue);
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* Editorial Artist Hero */
         header {
-            height: 100vh;
-            background: linear-gradient(rgba(5, 8, 10, 0.5), rgba(5, 8, 10, 0.8)), 
-                        url('marco3.webp') no-repeat;
+            min-height: 100vh;
+            background: 
+                linear-gradient(90deg, rgba(4, 6, 8, 0.92) 0%, rgba(4, 6, 8, 0.55) 55%, rgba(4, 6, 8, 0.85) 100%),
+                linear-gradient(0deg, var(--bg-dark) 0%, transparent 25%),
+                url('marco3.webp') no-repeat;
             background-size: cover;
             background-position: center 20%;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
+            padding: 120px 5% 80px;
+            position: relative;
+        }
+
+        .hero-grid {
+            max-width: 1250px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 50px;
+            align-items: end;
+        }
+
+        .hero-identity {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .hero-logo {
-            max-width: 450px; 
+            max-width: 340px;
+            width: 100%;
             height: auto;
-            margin-bottom: 40px;
-            opacity: 0.9;
+            margin-bottom: 28px;
+            filter: drop-shadow(0 0 25px rgba(0, 119, 255, 0.25));
         }
 
-        .hero-name { font-size: clamp(2.5rem, 8vw, 6rem); color: var(--silver); margin-bottom: 10px; text-shadow: 0 0 30px rgba(0, 119, 255, 0.5); }
-        .hero-tagline { font-size: 0.8rem; color: var(--electric-blue); letter-spacing: 12px; font-weight: 300; opacity: 0.8; }
-
-        .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
-        .section-title { font-size: 1.8rem; margin-bottom: 50px; border-bottom: 1px solid rgba(0, 119, 255, 0.3); padding-bottom: 15px; display: inline-block; }
-
-        .bio-section { margin-bottom: 100px; }
-        .bio-text { font-size: 1.1rem; font-weight: 300; margin-bottom: 20px; max-width: 850px; opacity: 0.9; }
-        .bio-academic {
-            font-size: 0.9rem;
+        .hero-kicker {
+            font-size: 0.75rem;
+            letter-spacing: 6px;
             color: var(--electric-blue);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            opacity: 0.8;
+            margin-bottom: 12px;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 100px;
+        .hero-name {
+            font-size: clamp(2.8rem, 6vw, 5.2rem);
+            line-height: 1.05;
+            color: var(--silver);
+            margin-bottom: 18px;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
-        .gallery-item {
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 540px;
+            margin-bottom: 32px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        /* Featured Latest Release Card in Hero */
+        .hero-release-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-accent);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            transition: var(--transition);
+        }
+
+        .hero-release-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 119, 255, 0.18);
+        }
+
+        .release-badge {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: var(--electric-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .release-badge::before {
+            content: "";
+            width: 6px; height: 6px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--electric-blue);
+        }
+
+        .hero-release-inner {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .hero-release-cover {
+            width: 95px;
+            height: 95px;
+            object-fit: cover;
+            border: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .hero-release-meta h3 {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            color: var(--silver);
+        }
+
+        .hero-release-meta p {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--electric-blue);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            border: 1px solid var(--electric-blue);
+            transition: var(--transition);
             cursor: pointer;
         }
-        .gallery-item img {
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--silver);
+            box-shadow: 0 0 25px var(--electric-glow);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--silver);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--electric-blue);
+            color: var(--electric-blue);
+            background: rgba(0, 119, 255, 0.05);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.68rem;
+            letter-spacing: 1.5px;
+        }
+
+        /* Main Container & Section Headers */
+        .container {
+            width: 100%;
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 18px;
+        }
+
+        .section-header-left span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: var(--electric-blue);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: var(--silver);
+        }
+
+        /* Interactive Discography Showcase */
+        .disco-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+
+        .album-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 18px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .album-card:hover {
+            border-color: var(--electric-blue);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .album-art-box {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #000;
+        }
+
+        .album-art-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
-            filter: grayscale(40%);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-            filter: grayscale(0%);
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        .album-card:hover .album-art-box img {
+            transform: scale(1.07);
+        }
+
+        .album-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 6, 8, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .album-card:hover .album-overlay {
+            opacity: 1;
+        }
+
+        .play-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--electric-blue);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 0 25px var(--electric-glow);
+            transform: scale(0.85);
+            transition: var(--transition);
+        }
+
+        .album-card:hover .play-circle {
+            transform: scale(1);
+        }
+
+        .album-year {
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            color: var(--electric-blue);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .album-title {
+            font-size: 1.05rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: var(--silver);
+        }
+
+        .album-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Visuals & Live Sessions */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .video-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 16px;
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            border-color: var(--border-accent);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .video-meta {
+            padding-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-caption {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--silver);
+            letter-spacing: 2px;
+        }
+
+        .video-tag {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--electric-blue);
+            text-transform: uppercase;
+            border: 1px solid var(--border-accent);
+            padding: 3px 10px;
+        }
+
+        /* Split Biography & Awards */
+        .bio-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .bio-story {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .bio-lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--silver);
+            line-height: 1.8;
+        }
+
+        .bio-text {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--muted);
+        }
+
+        .credential-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: rgba(0, 119, 255, 0.06);
+            border-left: 3px solid var(--electric-blue);
+            font-size: 0.82rem;
+            color: var(--silver);
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .awards-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .award-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 22px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+            gap: 15px;
+        }
+
+        .award-item:hover {
+            border-color: var(--electric-blue);
+            background: #0e151d;
+            transform: translateX(6px);
+        }
+
+        .award-year {
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            color: var(--electric-blue);
+            font-weight: 700;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .award-info {
+            flex: 1;
+        }
+
+        .award-info h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--silver);
+            margin-bottom: 2px;
+        }
+
+        .award-info p {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        /* Editorial Bento Photo Gallery */
+        .bento-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 240px);
+            gap: 16px;
+        }
+
+        .bento-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            background: #000;
+        }
+
+        .bento-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .bento-item:nth-child(2) {
+            grid-column: span 2;
+        }
+
+        .bento-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            filter: grayscale(35%) contrast(1.05);
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+        }
+
+        .bento-item:hover img {
+            transform: scale(1.06);
+            filter: grayscale(0%) contrast(1.05);
+        }
+
+        .bento-zoom {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            background: rgba(4, 6, 8, 0.8);
+            border: 1px solid var(--border-accent);
+            color: var(--silver);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .bento-item:hover .bento-zoom {
+            opacity: 1;
+        }
+
+        /* Press Grid */
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .press-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 32px 28px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .press-card:hover {
+            border-color: var(--electric-blue);
+            transform: translateY(-5px);
+        }
+
+        .press-quote-icon {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            line-height: 1;
+            color: var(--electric-blue);
+            opacity: 0.4;
+            margin-bottom: 10px;
+        }
+
+        .press-quote {
+            font-style: italic;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--silver);
+            margin-bottom: 24px;
+        }
+
+        .press-source {
+            font-size: 0.7rem;
+            letter-spacing: 2.5px;
+            color: var(--electric-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Projects & Studio Split */
+        .dual-feature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .feature-panel {
+            background: linear-gradient(145deg, var(--bg-surface), #06090d);
+            border: 1px solid var(--border-subtle);
+            padding: 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .feature-panel:hover {
+            border-color: var(--border-accent);
+        }
+
+        .project-top {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .project-img {
+            width: 88px;
+            height: 88px;
+            object-fit: cover;
+            border: 1px solid var(--border-accent);
+            flex-shrink: 0;
+        }
+
+        .feature-panel h3 {
+            font-size: 1.25rem;
+            color: var(--silver);
+            margin-bottom: 6px;
+        }
+
+        .feature-tag {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            color: var(--electric-blue);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .feature-panel p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 26px;
+        }
+
+        /* Lightbox */
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 2000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            inset: 0;
+            background: rgba(4, 6, 8, 0.95);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
+            padding: 30px;
         }
+
         #lightbox img {
             max-width: 90%;
-            max-height: 90%;
-            box-shadow: 0 0 30px rgba(0, 119, 255, 0.3);
-            border: 1px solid var(--electric-blue);
+            max-height: 88vh;
+            border: 1px solid var(--border-accent);
+            box-shadow: 0 0 50px rgba(0, 119, 255, 0.25);
         }
 
-        .awards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .award-link { text-decoration: none; color: inherit; display: block; }
-        .award-box { 
-            background: var(--bg-card); 
-            padding: 30px; 
-            border-left: 3px solid var(--electric-blue);
-            transition: var(--transition);
-            height: 100%;
-        }
-        .award-link:hover .award-box { 
-            transform: translateY(-5px); 
-            background: #141b22; 
-            box-shadow: 0 10px 20px rgba(0, 119, 255, 0.1);
-            border-left-width: 6px;
-        }
-        .award-box h3 { font-size: 0.9rem; color: var(--electric-blue); margin-bottom: 10px; }
-
-        .multimedia-section { margin-bottom: 100px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 1px solid rgba(0, 119, 255, 0.2); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-caption { margin-top: 15px; font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--silver); letter-spacing: 2px; text-align: center; }
-
-        /* Proyectos Paralelos Style */
-        .projects-section { margin-bottom: 100px; }
-        .project-card {
+        /* Sticky Artist Audio Bar */
+        .sticky-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(6, 9, 13, 0.94);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid var(--border-accent);
+            padding: 12px 5%;
+            z-index: 1500;
             display: flex;
-            flex-direction: column;
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 119, 255, 0.1);
-            padding: 30px;
-            gap: 25px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .player-track {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .player-track img {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .player-track-info strong {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--silver);
+        }
+
+        .player-track-info span {
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        .player-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 70px 5% 60px;
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+            background: #020305;
+        }
+
+        .footer-logo {
+            max-width: 180px;
+            opacity: 0.75;
+            margin-bottom: 24px;
+        }
+
+        .social-nav {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .social-nav a {
+            color: var(--silver);
+            font-size: 1.3rem;
             transition: var(--transition);
         }
-        .project-card:hover { border-color: var(--electric-blue); }
-        .project-header { display: flex; align-items: center; gap: 20px; }
-        .project-img { width: 80px; height: 80px; object-fit: cover; border: 1px solid var(--electric-blue); }
-        .project-info h3 { color: var(--electric-blue); font-size: 1.2rem; }
 
-        .eng-section { 
-            background: linear-gradient(45deg, #05080a, #0d1217); 
-            padding: 80px 40px; 
-            margin: 80px 0; 
-            border: 1px solid rgba(0, 119, 255, 0.2);
-            text-align: center; 
+        .social-nav a:hover {
+            color: var(--electric-blue);
+            transform: translateY(-4px);
         }
 
-        .disco-grid { display: flex; flex-direction: column; gap: 40px; }
-        .disco-entry { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 30px; 
-            background: rgba(255,255,255,0.02); 
-            padding: 25px; 
-            border: 1px solid rgba(0,119,255,0.1);
-            transition: var(--transition);
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .disco-showcase { grid-template-columns: repeat(2, 1fr); }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .bio-layout { grid-template-columns: 1fr; }
+            .press-grid { grid-template-columns: 1fr; }
         }
-        .disco-entry:hover { border-color: var(--electric-blue); }
-        .disco-img-wrapper { 
-            overflow: hidden; 
-            max-width: 300px; 
-            width: 100%; 
-            border: 1px solid rgba(255,255,255,0.1); 
-            flex-shrink: 0; 
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .disco-img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); display: block; }
-        .disco-entry:hover .disco-img { transform: scale(1.05); filter: brightness(1.1); }
-        .disco-details { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
-        .disco-details h3 { color: var(--electric-blue); margin-bottom: 15px; }
-
-        .press-item { margin-bottom: 50px; position: relative; padding-left: 50px; }
-        .press-item a { text-decoration: none; color: inherit; transition: 0.3s; display: block; }
-        .press-item a:hover .press-quote { color: var(--electric-blue); }
-        .press-quote { font-style: italic; font-size: 1.1rem; display: block; margin-bottom: 10px; transition: 0.3s; }
-        .press-quote::before { content: '"'; font-family: serif; font-size: 3.5rem; color: var(--electric-blue); position: absolute; left: 0; top: -15px; opacity: 0.5; }
-        .press-source { display: block; font-style: normal; font-size: 0.75rem; color: var(--electric-blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
-
-        .btn-action { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 12px; padding: 18px 35px; 
-            border: 1px solid var(--electric-blue); 
-            color: var(--silver); 
-            text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.8rem; 
-            transition: var(--transition); background: transparent; cursor: pointer; 
-        }
-        .btn-action:hover { background: var(--electric-blue); color: #fff; box-shadow: 0 0 30px rgba(0, 119, 255, 0.4); }
-
-        .btn-listen {
-            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; 
-            border: 1px solid rgba(255,255,255,0.2); color: var(--silver); 
-            text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; font-weight: 600; 
-            transition: var(--transition); background: transparent;
-        }
-        .btn-listen:hover { border-color: var(--electric-blue); color: var(--electric-blue); }
-
-        footer { padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: #030507; }
-        .social-nav { margin-bottom: 30px; }
-        .social-nav a { color: var(--silver); font-size: 1.6rem; margin: 0 15px; transition: var(--transition); }
-        .social-nav a:hover { color: var(--electric-blue); transform: translateY(-5px); display: inline-block; }
 
         @media (max-width: 768px) {
+            .nav-links { display: none; }
             .video-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (min-width: 768px) {
-            .disco-entry { flex-direction: row; align-items: stretch; }
-            .hero-logo { max-width: 600px; }
-            .project-card { flex-direction: row; align-items: center; }
+            .dual-feature { grid-template-columns: 1fr; }
+            .bento-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            .bento-item:nth-child(1),
+            .bento-item:nth-child(2) {
+                grid-column: span 2;
+                height: 260px;
+            }
+            .bento-item { height: 180px; }
+            .disco-showcase { grid-template-columns: 1fr; }
+            .sticky-player { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px 5%; }
+            body { padding-bottom: 120px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#">INICIO</a>
-        <a href="#galeria">GALERÍA</a>
-        <a href="#multimedia">MULTIMEDIA</a>
-        <a href="#proyectos">PROYECTOS</a>
-        <a href="#discografia">DISCOGRAFÍA</a>
-        <a href="mailto:marcomonteromusic@gmail.com">CONTACTO</a>
+        <a href="#" class="nav-brand">
+            <img src="logo.png" alt="Marco Montero Logo">
+            <span>MARCO MONTERO</span>
+        </a>
+        <div class="nav-links">
+            <a href="#discografia">MÚSICA</a>
+            <a href="#multimedia">SESIONES</a>
+            <a href="#biografia">ARTISTA</a>
+            <a href="#galeria">ARCHIVO</a>
+            <a href="#prensa">PRENSA</a>
+            <a href="#proyectos">ESTUDIO & PROYECTOS</a>
+        </div>
+        <div class="nav-social">
+            <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+            <a href="https://www.youtube.com/@MarcoMontero" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/__marcomontero__/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
     </nav>
 
     <div id="lightbox" onclick="this.style.display='none'">
-        <img src="" alt="Enlarged image">
+        <img src="" alt="Vista ampliada">
     </div>
 
     <header>
-        <img src="logo.png" alt="Logo Marco Montero" class="hero-logo">
-        <h1 class="hero-name">MARCO MONTERO</h1>
-        <div class="hero-tagline">COMPOSITOR • PRODUCTOR • INGENIERO DE SONIDO</div>
+        <div class="hero-grid">
+            <div class="hero-identity">
+                <img src="logo.png" alt="Logo Marco Montero" class="hero-logo">
+                <span class="hero-kicker">San Ramón, Costa Rica</span>
+                <h1 class="hero-name">MARCO MONTERO</h1>
+                <p class="hero-subtitle">Compositor, guitarrista e ingeniero de sonido. Explorando la intersección entre el math rock, el rock progresivo y paisajes cinemáticos.</p>
+                <div class="hero-actions">
+                    <a href="#discografia" class="btn-primary"><i class="fas fa-compact-disc"></i> EXPLORAR DISCOGRAFÍA</a>
+                    <a href="mailto:marcomonteromusic@gmail.com" class="btn-outline"><i class="fas fa-envelope"></i> BOOKING & CONTACTO</a>
+                </div>
+            </div>
+
+            <!-- Spotlight Último Lanzamiento -->
+            <aside class="hero-release-card">
+                <span class="release-badge">Lanzamiento Destacado • 2025</span>
+                <div class="hero-release-inner">
+                    <img src="ecosdeanochecer.png" alt="Ecos de Anochecer" class="hero-release-cover">
+                    <div class="hero-release-meta">
+                        <h3>Ecos de Anochecer</h3>
+                        <p>LP Conceptual • Fusión de texturas oscuras, ritmos trap y rock progresivo.</p>
+                        <a href="https://open.spotify.com/album/5d4ly1XeuafSm2Cw7gVXbX" target="_blank" class="btn-outline btn-sm">
+                            <i class="fab fa-spotify"></i> ESCUCHAR ÁLBUM
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </header>
 
-    <div class="container">
-        
-        <section class="bio-section">
-            <h2 class="section-title">Biografía</h2>
-            <p class="bio-text">
-                Marco Montero es un artista independiente, compositor y guitarrista de San Ramón de Alajuela, Costa Rica. Su propuesta sonora se caracteriza por una amalgama de math rock, rock progresivo y atmósferas cinemáticas, consolidándose como una de las figuras técnicas más relevantes de la escena instrumental actual.
-            </p>
-            <p class="bio-academic">Graduado con honores de la especialidad de ingeniería de sonido en la ULACIT 2025</p>
-            
-            <div class="awards-container">
-                <a href="https://www.youtube.com/watch?v=Jr5hQ5_U_BE&list=RDJr5hQ5_U_BE&start_radio=1" target="_blank" class="award-link">
-                    <div class="award-box">
-                        <h3>PREMIOS ACAM 2025</h3>
-                        <p>Nominado a <strong>Mejor Sencillo Rock Progresivo</strong> por <em>ZIGZAG</em> (colab. José D. Porras).</p>
-                    </div>
+    <main class="container">
+
+        <!-- DISCOGRAFÍA -->
+        <section id="discografia" style="margin-bottom: 120px;">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span>Catálogo Oficial</span>
+                    <h2 class="section-title">Discografía</h2>
+                </div>
+                <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" class="btn-outline btn-sm">
+                    <i class="fab fa-spotify"></i> PERFIL EN SPOTIFY
                 </a>
-                <a href="https://www.youtube.com/watch?v=pRqZV9egSaQ" target="_blank" class="award-link">
-                    <div class="award-box">
-                        <h3>PREMIOS ACAM 2024</h3>
-                        <p>Nominado a <strong>Mejor Sencillo Instrumental</strong> por <em>Caos y Luz</em> (colab. Chanti).</p>
+            </div>
+
+            <div class="disco-showcase">
+                <article class="album-card">
+                    <div class="album-art-box">
+                        <img src="ecosdeanochecer.png" alt="Ecos de Anochecer">
+                        <div class="album-overlay">
+                            <a href="https://open.spotify.com/album/5d4ly1XeuafSm2Cw7gVXbX" target="_blank" class="play-circle" aria-label="Escuchar Ecos de Anochecer">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
                     </div>
-                </a>
-                <a href="https://www.youtube.com/watch?v=Wqh1NXguyr0&list=RDWqh1NXguyr0&start_radio=1&t=7s" target="_blank" class="award-link">
-                    <div class="award-box">
-                        <h3>PREMIOS ACAM 2024</h3>
-                        <p>Nominado a <strong>Mejor Álbum de Rock Progresivo</strong> por <em>Galería 1930 (En Vivo)</em>.</p>
+                    <span class="album-year">2025 • LP CONCEPTUAL</span>
+                    <h3 class="album-title">Ecos de Anochecer</h3>
+                    <p class="album-desc">Una exploración densa y nocturna que fusiona elementos del trap con la arquitectura del rock progresivo.</p>
+                    <a href="https://open.spotify.com/album/5d4ly1XeuafSm2Cw7gVXbX" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
+                        <i class="fab fa-spotify"></i> SPOTIFY
+                    </a>
+                </article>
+
+                <article class="album-card">
+                    <div class="album-art-box">
+                        <img src="zigzag.png" alt="ZIGZAG">
+                        <div class="album-overlay">
+                            <a href="https://open.spotify.com/album/64qCO933912UrydW3A3m80" target="_blank" class="play-circle" aria-label="Escuchar ZIGZAG">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
                     </div>
-                </a>
-                <a href="https://www.youtube.com/watch?v=rTgqXU5kj1E&list=RDrTgqXU5kj1E&start_radio=1&t=351s" target="_blank" class="award-link">
-                    <div class="award-box">
-                        <h3>PREMIOS ACAM 2022</h3>
-                        <p>Nominado a <strong>Mejor Disco Instrumental</strong> por <em>New Adventures</em>.</p>
+                    <span class="album-year">2024 • SENCILLO</span>
+                    <h3 class="album-title">ZIGZAG</h3>
+                    <p class="album-desc">En colaboración con José D. Porras. Nominado a Mejor Sencillo Rock Progresivo en Premios ACAM 2025.</p>
+                    <a href="https://open.spotify.com/album/64qCO933912UrydW3A3m80" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
+                        <i class="fab fa-spotify"></i> SPOTIFY
+                    </a>
+                </article>
+
+                <article class="album-card">
+                    <div class="album-art-box">
+                        <img src="entremareas.png" alt="Entre Mareas">
+                        <div class="album-overlay">
+                            <a href="https://open.spotify.com/album/7iBTpdxTTRaaVtFx0pwLoD" target="_blank" class="play-circle" aria-label="Escuchar Entre Mareas">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
                     </div>
-                </a>
+                    <span class="album-year">2024 • EP</span>
+                    <h3 class="album-title">Entre Mareas</h3>
+                    <p class="album-desc">Obra conceptual inspirada en la resiliencia y paisajes sonoros orgánicos de la naturaleza.</p>
+                    <a href="https://open.spotify.com/album/7iBTpdxTTRaaVtFx0pwLoD" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
+                        <i class="fab fa-spotify"></i> SPOTIFY
+                    </a>
+                </article>
+
+                <article class="album-card">
+                    <div class="album-art-box">
+                        <img src="newadventures.png" alt="New Adventures">
+                        <div class="album-overlay">
+                            <a href="https://open.spotify.com/album/7G6s9D96yXBaJeqvAyzgPs" target="_blank" class="play-circle" aria-label="Escuchar New Adventures">
+                                <i class="fas fa-play"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <span class="album-year">2022 • ÁLBUM</span>
+                    <h3 class="album-title">New Adventures</h3>
+                    <p class="album-desc">Ocho piezas instrumentales que trazan un viaje personal. Nominado a Mejor Disco Instrumental (ACAM).</p>
+                    <a href="https://open.spotify.com/album/7G6s9D96yXBaJeqvAyzgPs" target="_blank" class="btn-outline btn-sm" style="justify-content: center;">
+                        <i class="fab fa-spotify"></i> SPOTIFY
+                    </a>
+                </article>
             </div>
         </section>
 
-        <section id="galeria">
-            <h2 class="section-title">Galería</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" onclick="openLightbox('marco.webp')"><img src="marco.webp" alt="Marco Montero 1"></div>
-                <div class="gallery-item" onclick="openLightbox('marco1.webp')"><img src="marco1.webp" alt="Marco Montero 2"></div>
-                <div class="gallery-item" onclick="openLightbox('marco2.webp')"><img src="marco2.webp" alt="Marco Montero 3"></div>
-                <div class="gallery-item" onclick="openLightbox('marco3.webp')"><img src="marco3.webp" alt="Marco Montero 4"></div>
+        <!-- MULTIMEDIA & SESIONES -->
+        <section id="multimedia" style="margin-bottom: 120px;">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span>En Vivo & Estudio</span>
+                    <h2 class="section-title">Sesiones Audiovisuales</h2>
+                </div>
+                <a href="https://www.youtube.com/@MarcoMontero" target="_blank" class="btn-outline btn-sm">
+                    <i class="fab fa-youtube"></i> CANAL OFICIAL
+                </a>
             </div>
-        </section>
 
-        <section id="multimedia" class="multimedia-section">
-            <h2 class="section-title">Multimedia</h2>
             <div class="video-grid">
-                <div>
+                <div class="video-card">
                     <div class="video-wrapper">
                         <iframe src="https://www.youtube.com/embed/2J8v-ONCevI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <p class="video-caption">El Gangster (Guitar Playthrough)</p>
+                    <div class="video-meta">
+                        <span class="video-caption">El Gangster</span>
+                        <span class="video-tag">Guitar Playthrough</span>
+                    </div>
                 </div>
-                <div>
+                <div class="video-card">
                     <div class="video-wrapper">
                         <iframe src="https://www.youtube.com/embed/ln0_VUJKFTc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <p class="video-caption">Migrar o Morir (En Vivo @London Room)</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="proyectos" class="projects-section">
-            <h2 class="section-title">Proyectos Paralelos</h2>
-            <div class="project-card">
-                <img src="renacer.png" alt="Terciopelo - Renacer" class="project-img">
-                <div class="project-info">
-                    <h3>TERCIOPELO</h3>
-                    <p style="margin: 10px 0; font-weight: 300;">Banda de rock alternativo y progresivo donde Marco participa como guitarrista y productor. Con una propuesta atmosférica y potente, Terciopelo explora narrativas emocionales a través de composiciones complejas pero accesibles.</p>
-                    <a href="https://terciopelo.online" target="_blank" class="btn-listen" style="padding: 5px 15px;">SITIO WEB OFICIAL</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="eng-section">
-            <h2>Ingeniería de Sonido</h2>
-            <p style="margin: 20px 0; font-weight: 300;">Producción, mezcla y masterización con un enfoque formal y cinemático.</p>
-            <a href="mailto:marcomonteromusic@gmail.com" class="btn-action">SOLICITAR COTIZACIÓN</a>
-        </section>
-
-        <section id="discografia">
-            <h2 class="section-title">Discografía</h2>
-            <div class="disco-grid">
-                <div class="disco-entry">
-                    <div class="disco-img-wrapper">
-                        <img src="ecosdeanochecer.png" class="disco-img" alt="Ecos de Anochecer">
-                    </div>
-                    <div class="disco-details">
-                        <h3>Ecos de Anochecer (2025)</h3>
-                        <p>LP Conceptual. Una exploración densa que fusiona elementos del trap con el rock progresivo.</p>
-                        <a href="https://open.spotify.com/album/5d4ly1XeuafSm2Cw7gVXbX" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
-                    </div>
-                </div>
-                <div class="disco-entry">
-                    <div class="disco-img-wrapper">
-                        <img src="zigzag.png" class="disco-img" alt="ZIGZAG">
-                    </div>
-                    <div class="disco-details">
-                        <h3>ZIGZAG (2024)</h3>
-                        <p>Sencillo en colaboración con José D. Porras. Pieza instrumental que destaca por su fusión de estilos.</p>
-                        <a href="https://open.spotify.com/album/64qCO933912UrydW3A3m80" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
-                    </div>
-                </div>
-                <div class="disco-entry">
-                    <div class="disco-img-wrapper">
-                        <img src="entremareas.png" class="disco-img" alt="Entre Mareas">
-                    </div>
-                    <div class="disco-details">
-                        <h3>Entre Mareas (2024)</h3>
-                        <p>EP basado en la resiliencia y paisajes sonoros inspirados en la naturaleza.</p>
-                        <a href="https://open.spotify.com/album/7iBTpdxTTRaaVtFx0pwLoD" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
-                    </div>
-                </div>
-                <div class="disco-entry">
-                    <div class="disco-img-wrapper">
-                        <img src="newadventures.png" class="disco-img" alt="New Adventures">
-                    </div>
-                    <div class="disco-details">
-                        <h3>New Adventures (2022)</h3>
-                        <p>Nominado a Mejor Disco Instrumental (ACAM). Ocho temas que representan un viaje personal.</p>
-                        <a href="https://open.spotify.com/album/7G6s9D96yXBaJeqvAyzgPs" target="_blank" class="btn-listen"><i class="fab fa-spotify"></i> SPOTIFY</a>
+                    <div class="video-meta">
+                        <span class="video-caption">Migrar o Morir</span>
+                        <span class="video-tag">En Vivo @London Room</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="prensa" style="margin-top: 100px;">
-            <h2 class="section-title">Prensa</h2>
-            <div class="press-item">
-                <a href="https://infocabildo.com/marco-montero-rock-progresivo-con-cantos-de-ballenas/" target="_blank">
-                    <span class="press-quote">"Rock progresivo con cantos de ballenas... una obra conceptual que explora la resiliencia."</span>
-                    <span class="press-source">— INFOCABILDO (Entre Mareas)</span>
+        <!-- BIOGRAFÍA & RECONOCIMIENTOS -->
+        <section id="biografia" style="margin-bottom: 120px;">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span>Trayectoria & Reconocimientos</span>
+                    <h2 class="section-title">El Artista</h2>
+                </div>
+            </div>
+
+            <div class="bio-layout">
+                <div class="bio-story">
+                    <p class="bio-lead">
+                        Marco Montero es un artista independiente, compositor y guitarrista originario de San Ramón de Alajuela, Costa Rica.
+                    </p>
+                    <p class="bio-text">
+                        Su propuesta sonora se distingue por una amalgama visceral de math rock, rock progresivo y atmósferas cinemáticas. Al integrar el rigor técnico de la producción de estudio con la expresividad instrumental, se ha consolidado como una de las voces creativas más singulares de la escena instrumental costarricense.
+                    </p>
+                    <div class="credential-pill">
+                        <i class="fas fa-award" style="color: var(--electric-blue); font-size: 1.2rem;"></i>
+                        <span>Graduado con honores de la especialidad de Ingeniería de Sonido en la ULACIT (2025)</span>
+                    </div>
+                </div>
+
+                <div class="awards-stack">
+                    <a href="https://www.youtube.com/watch?v=Jr5hQ5_U_BE&list=RDJr5hQ5_U_BE&start_radio=1" target="_blank" class="award-item">
+                        <span class="award-year">ACAM 2025</span>
+                        <div class="award-info">
+                            <h4>Mejor Sencillo Rock Progresivo</h4>
+                            <p>Nominado por <em>ZIGZAG</em> (colab. José D. Porras)</p>
+                        </div>
+                        <i class="fas fa-arrow-up-right-from-square" style="color: var(--muted); font-size: 0.8rem;"></i>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=pRqZV9egSaQ" target="_blank" class="award-item">
+                        <span class="award-year">ACAM 2024</span>
+                        <div class="award-info">
+                            <h4>Mejor Sencillo Instrumental</h4>
+                            <p>Nominado por <em>Caos y Luz</em> (colab. Chanti)</p>
+                        </div>
+                        <i class="fas fa-arrow-up-right-from-square" style="color: var(--muted); font-size: 0.8rem;"></i>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=Wqh1NXguyr0&list=RDWqh1NXguyr0&start_radio=1&t=7s" target="_blank" class="award-item">
+                        <span class="award-year">ACAM 2024</span>
+                        <div class="award-info">
+                            <h4>Mejor Álbum de Rock Progresivo</h4>
+                            <p>Nominado por <em>Galería 1930 (En Vivo)</em></p>
+                        </div>
+                        <i class="fas fa-arrow-up-right-from-square" style="color: var(--muted); font-size: 0.8rem;"></i>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=rTgqXU5kj1E&list=RDrTgqXU5kj1E&start_radio=1&t=351s" target="_blank" class="award-item">
+                        <span class="award-year">ACAM 2022</span>
+                        <div class="award-info">
+                            <h4>Mejor Disco Instrumental</h4>
+                            <p>Nominado por <em>New Adventures</em></p>
+                        </div>
+                        <i class="fas fa-arrow-up-right-from-square" style="color: var(--muted); font-size: 0.8rem;"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHIVO VISUAL (BENTO GALLERY) -->
+        <section id="galeria" style="margin-bottom: 120px;">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span>Fotografía & Escenario</span>
+                    <h2 class="section-title">Archivo Visual</h2>
+                </div>
+            </div>
+
+            <div class="bento-gallery">
+                <div class="bento-item" onclick="openLightbox('marco.webp')">
+                    <img src="marco.webp" alt="Marco Montero Retrato 1">
+                    <div class="bento-zoom"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="bento-item" onclick="openLightbox('marco1.webp')">
+                    <img src="marco1.webp" alt="Marco Montero Retrato 2">
+                    <div class="bento-zoom"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="bento-item" onclick="openLightbox('marco2.webp')">
+                    <img src="marco2.webp" alt="Marco Montero Retrato 3">
+                    <div class="bento-zoom"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="bento-item" onclick="openLightbox('marco3.webp')">
+                    <img src="marco3.webp" alt="Marco Montero Retrato 4">
+                    <div class="bento-zoom"><i class="fas fa-expand"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRENSA -->
+        <section id="prensa" style="margin-bottom: 120px;">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span>Reseñas & Medios</span>
+                    <h2 class="section-title">Prensa</h2>
+                </div>
+            </div>
+
+            <div class="press-grid">
+                <a href="https://infocabildo.com/marco-montero-rock-progresivo-con-cantos-de-ballenas/" target="_blank" class="press-card">
+                    <div>
+                        <div class="press-quote-icon">“</div>
+                        <p class="press-quote">Rock progresivo con cantos de ballenas... una obra conceptual que explora la resiliencia.</p>
+                    </div>
+                    <span class="press-source">
+                        <span>INFOCABILDO • Entre Mareas</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="https://nacionprogresiva.wordpress.com/2023/06/20/resena-new-adventures-de-marco-montero-un-prodigio-compositor-costarricense-con-una-manera-singular-de-hacer-prog/" target="_blank" class="press-card">
+                    <div>
+                        <div class="press-quote-icon">“</div>
+                        <p class="press-quote">Un prodigio compositor costarricense con una manera singular de hacer prog.</p>
+                    </div>
+                    <span class="press-source">
+                        <span>NACIÓN PROGRESIVA • New Adventures</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="https://nacionprogresiva.wordpress.com/2023/08/10/resena-galeria-1930-en-vivo-de-marco-montero-el-trabajo-en-directo-de-este-excelente-compositor-costarricense-del-progresivo/" target="_blank" class="press-card">
+                    <div>
+                        <div class="press-quote-icon">“</div>
+                        <p class="press-quote">El trabajo en directo de este excelente compositor costarricense del progresivo.</p>
+                    </div>
+                    <span class="press-source">
+                        <span>NACIÓN PROGRESIVA • Galería 1930</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
                 </a>
             </div>
-            <div class="press-item">
-                <a href="https://nacionprogresiva.wordpress.com/2023/06/20/resena-new-adventures-de-marco-montero-un-prodigio-compositor-costarricense-con-una-manera-singular-de-hacer-prog/" target="_blank">
-                    <span class="press-quote">"Un prodigio compositor costarricense con una manera singular de hacer prog."</span>
-                    <span class="press-source">— NACIÓN PROGRESIVA (New Adventures)</span>
-                </a>
-            </div>
-            <div class="press-item">
-                <a href="https://nacionprogresiva.wordpress.com/2023/08/10/resena-galeria-1930-en-vivo-de-marco-montero-el-trabajo-en-directo-de-este-excelente-compositor-costarricense-del-progresivo/" target="_blank">
-                    <span class="press-quote">"El trabajo en directo de este excelente compositor del progresivo."</span>
-                    <span class="press-source">— NACIÓN PROGRESIVA (Galería 1930)</span>
-                </a>
+        </section>
+
+        <!-- PROYECTOS PARALELOS & INGENIERÍA DE SONIDO -->
+        <section id="proyectos">
+            <div class="dual-feature">
+                <div class="feature-panel">
+                    <div>
+                        <div class="project-top">
+                            <img src="renacer.png" alt="Terciopelo - Renacer" class="project-img">
+                            <div>
+                                <span class="feature-tag">Proyecto Paralelo</span>
+                                <h3>TERCIOPELO</h3>
+                            </div>
+                        </div>
+                        <p>Banda de rock alternativo y progresivo donde Marco participa como guitarrista y productor. Una propuesta atmosférica y potente que explora narrativas emocionales a través de composiciones complejas pero accesibles.</p>
+                    </div>
+                    <div>
+                        <a href="https://terciopelo.online" target="_blank" class="btn-outline btn-sm">
+                            <i class="fas fa-globe"></i> VISITAR TERCIOPELO.ONLINE
+                        </a>
+                    </div>
+                </div>
+
+                <div class="feature-panel">
+                    <div>
+                        <div class="project-top">
+                            <div style="width: 88px; height: 88px; border: 1px solid var(--border-accent); display: flex; align-items: center; justify-content: center; background: rgba(0,119,255,0.06); flex-shrink: 0;">
+                                <i class="fas fa-sliders" style="font-size: 2rem; color: var(--electric-blue);"></i>
+                            </div>
+                            <div>
+                                <span class="feature-tag">Servicios de Estudio</span>
+                                <h3>INGENIERÍA DE SONIDO</h3>
+                            </div>
+                        </div>
+                        <p>Producción musical, grabación, mezcla y masterización con un enfoque técnico formal y estética cinemática para artistas independientes y proyectos audiovisuales.</p>
+                    </div>
+                    <div>
+                        <a href="mailto:marcomonteromusic@gmail.com" class="btn-primary btn-sm">
+                            <i class="fas fa-paper-plane"></i> SOLICITAR COTIZACIÓN
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-    </div>
+    </main>
 
     <footer>
+        <img src="logo.png" alt="Marco Montero" class="footer-logo">
         <div class="social-nav">
-            <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank"><i class="fab fa-spotify"></i></a>
-            <a href="https://www.youtube.com/@MarcoMontero" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/__marcomontero__/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:marcomonteromusic@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+            <a href="https://www.youtube.com/@MarcoMontero" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/__marcomontero__/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:marcomonteromusic@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
-        <p style="font-size: 0.8rem; letter-spacing: 3px; color: var(--electric-blue); font-weight: 600;">MARCO MONTERO • 2026</p>
-        <p style="font-size: 0.7rem; opacity: 0.4; margin-top: 10px;">SAN RAMÓN, COSTA RICA</p>
+        <p style="font-size: 0.78rem; letter-spacing: 3px; color: var(--electric-blue); font-weight: 600;">MARCO MONTERO • 2026</p>
+        <p style="font-size: 0.68rem; color: var(--muted); margin-top: 8px; letter-spacing: 2px;">SAN RAMÓN, COSTA RICA</p>
     </footer>
+
+    <!-- Barra Persistente de Escucha -->
+    <div class="sticky-player">
+        <div class="player-track">
+            <img src="ecosdeanochecer.png" alt="Ecos de Anochecer">
+            <div class="player-track-info">
+                <strong>ECOS DE ANOCHECER</strong>
+                <span>Marco Montero • Disponible en plataformas digitales</span>
+            </div>
+        </div>
+        <div class="player-links">
+            <a href="https://open.spotify.com/artist/5z6pLdbisZAeXJwXrj8w8S" target="_blank" class="btn-primary btn-sm">
+                <i class="fab fa-spotify"></i> ESCUCHAR EN SPOTIFY
+            </a>
+            <a href="https://www.youtube.com/@MarcoMontero" target="_blank" class="btn-outline btn-sm">
+                <i class="fab fa-youtube"></i> YOUTUBE
+            </a>
+        </div>
+    </div>
 
     <script>
         function openLightbox(src) {
